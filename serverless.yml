@@ -1,0 +1,26 @@
+service: serverless
+frameworkVersion: '3.1.1'
+
+provider:
+  name: aws
+
+  runtime: nodejs12.x
+  region: eu-west-2
+  lambdaHashingVersion: 20201221
+
+plugins:
+  - serverless-s3-local
+  - serverless-offline         
+
+resources:
+  Resources:
+    LocalDevBucketS3:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: localdevstorage.mtimo.com   
+
+custom:
+  s3:
+    host: localhost
+    directory: ./local-s3
+    cors: ./cors.xml  
